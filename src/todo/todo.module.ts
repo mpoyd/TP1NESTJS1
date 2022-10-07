@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
+import { uuidProvider } from 'src/common/common.uuidProvider';
 import { TodoController } from './todo.controller';
-import { TodoStatusEnum } from './todo.TodoStatusEnum';
+
 
 @Module({
-  controllers: [TodoController]
+  controllers: [TodoController],
+  providers:[uuidProvider]
 })
 export class TodoModule {
 }

@@ -1,4 +1,4 @@
-import { Controller, Delete, Get,Patch, Post, Put,Body,Param,NotFoundException,Query } from '@nestjs/common';
+import { Controller, Delete, Get,Patch, Post, Put,Body,Param,NotFoundException,Query, Injectable} from '@nestjs/common';
 import { TodoModule } from './todo.module';
 import {v4 as uuidv4} from 'uuid';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
@@ -6,24 +6,28 @@ import { TodoModel } from './todo.model';
 import { query } from 'express';
 import { TodoDto } from './todo.todoDto';
 import { todoUpdateDto } from './todo.todoUpdateDto';
-import {TodoService} from "./todo.todoService";
-@Controller('todo')
-export class TodoController {
-    private todos = [];
+import { uuidProvider } from 'src/common/common.uuidProvider';
 
-    constructor(private toDoModuleService: TodoService) {}
+@Injectable()
+export class TodoService {
+    private todos: TodoModel[] = []
 
-
-    @Get('all')
-    getTodos() {
-        // Todo 2 : Get the todo liste
-        console.log('getTodos')
-        return(this.toDoModuleService.getTodo());
+    findTodo(id: string): TodoModel {
+        console.log(id);
+        if (!id) throw new NotFoundException();
+        const todo = this.todos.find((todo) => todo.id == id);
+        //throw exception if not found
+        if (!todo) throw new NotFoundException();
+        return todo;
     }
 
-    //without DTO
-    @Post('nodto')
-    addTodo(@Body() body){
+    getTodo(): TodoModel[] {
+        // Todo 2 : Get the todo liste
+        console.log('getTodos')
+        return(this.todos);
+    }
+
+    postTodoWithDTO(body: TodoDto): TodoModel {
         if (!body.name) throw new NotFoundException();
         if (!body.description) throw new NotFoundException();
         const todo = new TodoModel();
@@ -33,20 +37,20 @@ export class TodoController {
         this.todos.push(todo);
         return todo;
     }
-    
-    @Get('byid')
-    findTodo(@Query('id') id) {
+
+    deleteTodo(id: string): TodoModel {
         console.log(id);
-        return this.toDoModuleService.findTodo(id);
+        if (!id) throw new NotFoundException();
+        const todo = this.todos.find((todo) => todo.id == id);
+        //throw exception if not found
+        if (!todo) throw new NotFoundException();
+        const indexOfTodo = this.todos.indexOf(todo);
+        this.todos.splice(indexOfTodo,1);
+        return todo;
     }
+    
 
-    @Delete('byid')
-    deleteTodo(@Query('id') id) {
-        return(this.toDoModuleService.deleteTodo(id));
-    }
-
-    @Put('byid')
-    updateTodo(@Query('id') id,@Body() body) {
+    updateTodoWithDTO(id: string, body: todoUpdateDto): TodoModel{
         console.log(id);
         if (!id) throw new NotFoundException();
         const todo = this.todos.find((todo) => todo.id == id);
@@ -64,16 +68,11 @@ export class TodoController {
         return todo;
     }
 
-    //with DTO
-    @Post('byiddto')
-    addTodoDto(@Body() body:TodoDto){
-        return (this.toDoModuleService.postTodoWithDTO(body));
+    getUuid(): string {
+        // Todo 2 : Get the todo liste
+        console.log('getUuid');
+        return uuidProvider.getUuid();
+    
     }
-
-    @Put('byiddto')
-    updateTodoDto(@Query('id') id,@Body() body:todoUpdateDto) {
-       return(this.toDoModuleService.updateTodoWithDTO(id,body));
-    }
-
 
 }
