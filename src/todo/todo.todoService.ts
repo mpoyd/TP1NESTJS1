@@ -64,7 +64,10 @@ export class TodoService {
         
         todo.description = body.description;
         todo.name = body.name;
-        if(!( (Object.values(body.status).includes('actif')) || (Object.values(body.status).includes('waiting')) || (Object.values(body.status).includes('done')) )) throw new NotFoundException("invalid status");
+        if(! (body.status.match('actif') ||
+        (body.status.match('waiting')) ||
+        (body.status.match('done')) ))
+           throw new NotFoundException("invalid status");
         todo.status = body.status;
         return todo;
     }
