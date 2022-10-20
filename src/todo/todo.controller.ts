@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
 import { TodoModel } from './todo.model';
 import { query } from 'express';
-import { TodoDto } from './todo.todoDto';
+import { todoDto } from './todo.todoDto';
 import { todoUpdateDto } from './todo.todoUpdateDto';
 import {TodoService} from "./todo.todoService";
 @Controller('todo')

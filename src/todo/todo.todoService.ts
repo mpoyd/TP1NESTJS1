@@ -4,7 +4,7 @@ import {v4 as uuidv4} from 'uuid';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
 import { TodoModel } from './todo.model';
 import { query } from 'express';
-import { TodoDto } from './todo.todoDto';
+import { todoDto } from './todo.todoDto';
 import { todoUpdateDto } from './todo.todoUpdateDto';
 import { uuidProvider } from 'src/common/common.uuidProvider';
 
@@ -28,7 +28,7 @@ export class TodoService {
         return(this.todos);
     }
 
-    postTodoWithDTO(body: TodoDto): TodoModel {
+    postTodoWithDTO(body: todoDto): TodoModel {
         if (!body.name) throw new NotFoundException();
         if (!body.description) throw new NotFoundException();
         const todo = new TodoModel();
@@ -73,7 +73,6 @@ export class TodoService {
     }
 
     getUuid(): string {
-        // Todo 2 : Get the todo liste
         console.log('getUuid');
         return this.uuidProv.getUuid();
     
