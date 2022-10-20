@@ -1,4 +1,4 @@
-import { Controller, Delete, Get,Patch, Post, Put,Body,Param,NotFoundException,Query } from '@nestjs/common';
+import { Controller, Delete, Get,Patch, Post, Put,Body,Param,NotFoundException,Query,ParseArrayPipe,HttpStatus } from '@nestjs/common';
 import { TodoModule } from './todo.module';
 import {v4 as uuidv4} from 'uuid';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
@@ -7,6 +7,8 @@ import { query } from 'express';
 import { todoDto } from './todo.todoDto';
 import { todoUpdateDto } from './todo.todoUpdateDto';
 import {TodoService} from "./todo.todoService";
+import { skillsDto } from './todo.skills.Dto';
+import { OurPipePipe } from 'src/pipes/our-pipe.pipe';
 @Controller('todo')
 export class TodoController {
     private todos = [];
@@ -81,5 +83,13 @@ export class TodoController {
        return(this.toDoModuleService.updateTodoWithDTO(id,body));
     }
 
-
+  //Pipes
+    @Post('test')
+    pipeSkills(
+    @Body(OurPipePipe) body): string {
+        console.log(body)
+    return body;
 }
+
+
+}   
