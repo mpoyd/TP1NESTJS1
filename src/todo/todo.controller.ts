@@ -72,7 +72,7 @@ export class TodoController {
 
     //with DTO
     @Post('byiddto')
-    addTodoDto(@Body() body:TodoDto){
+    addTodoDto(@Body() body:todoDto){
         return (this.toDoModuleService.postTodoWithDTO(body));
     }
 
