@@ -49,16 +49,18 @@ export class TodoController {
     updateTodo(@Query('id') id,@Body() body) {
         console.log(id);
         if (!id) throw new NotFoundException();
-        const todo = this.todos.find((todo) => todo.id == id);
+        console.log(1)
+        const todo = this.findTodo(id)
         //throw exception if not found
         if (!todo) throw new NotFoundException();
-
+        console.log(2)
         if (!body.name) throw new NotFoundException();
         if (!body.description) throw new NotFoundException();
         if (!body.status) throw new NotFoundException();
         
         todo.description = body.description;
         todo.name = body.name;
+        console.log(Object.values(body.status))
         if(!( (Object.values(body.status).includes('actif')) || (Object.values(body.status).includes('waiting')) || (Object.values(body.status).includes('done')) )) throw new NotFoundException("invalid status");
         todo.status = body.status;
         return todo;

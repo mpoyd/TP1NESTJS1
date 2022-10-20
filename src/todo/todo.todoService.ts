@@ -11,6 +11,7 @@ import { uuidProvider } from 'src/common/common.uuidProvider';
 @Injectable()
 export class TodoService {
     private todos: TodoModel[] = []
+    constructor(private uuidProv: uuidProvider) {}
 
     findTodo(id: string): TodoModel {
         console.log(id);
@@ -71,7 +72,7 @@ export class TodoService {
     getUuid(): string {
         // Todo 2 : Get the todo liste
         console.log('getUuid');
-        return uuidProvider.getUuid();
+        return this.uuidProv.getUuid();
     
     }
 
