@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
 @Entity('todo')
 export class todoEntity {
@@ -12,4 +12,8 @@ export class todoEntity {
     createdAt: Date;
     @Column({ type: 'enum', enum: TodoStatusEnum, default: TodoStatusEnum.waiting })
     status: TodoStatusEnum;
+    @CreateDateColumn({update:false})
+    updatedAt: Date;
+    @UpdateDateColumn()
+    deletedAt: Date;
 }
