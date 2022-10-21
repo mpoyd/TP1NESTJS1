@@ -1,19 +1,14 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { timestamp } from './todo.timestamp';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
 @Entity('todo')
-export class todoEntity {
+export class todoEntity extends timestamp {
     @PrimaryGeneratedColumn()
     id: number;
     @Column({ length: 50, unique: true })
     name: string;
     @Column()
     description: string;
-    @Column({ unique: true })
-    createdAt: Date;
     @Column({ type: 'enum', enum: TodoStatusEnum, default: TodoStatusEnum.waiting })
     status: TodoStatusEnum;
-    @CreateDateColumn({update:false})
-    updatedAt: Date;
-    @UpdateDateColumn()
-    deletedAt: Date;
 }
