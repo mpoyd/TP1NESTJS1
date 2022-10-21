@@ -5,7 +5,7 @@ import { skillsDto } from 'src/todo/todo.skills.Dto';
 export class OurPipePipe implements PipeTransform {
   transform(value: { skills: string[] }, metadata: ArgumentMetadata): any {
     console.log(value);
-    if (!value) throw new BadRequestException();
+    if (!value) throw new BadRequestException('Array Does not Exist');
     if (metadata.type === 'body') {
       return value.skills.map((val) => val.toUpperCase()).join('-');
     }

@@ -83,13 +83,6 @@ export class TodoController {
        return(this.toDoModuleService.updateTodoWithDTO(id,body));
     }
 
-  //Pipes
-    @Post('test')
-    pipeSkills(
-    @Body(OurPipePipe) body): string {
-        console.log(body)
-    return body;
-}
 
 
 }   
