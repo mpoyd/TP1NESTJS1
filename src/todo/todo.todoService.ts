@@ -126,45 +126,4 @@ export class TodoService {
     
     }
 
-    postTodoWithDb(body: todoDto): TodoModel {
-        if (!body.name) throw new NotFoundException();
-        if (!body.description) throw new NotFoundException();
-        const todo = new TodoModel();
-        todo.description = body.description;
-        todo.name = body.name;
-        console.log(todo);
-        this.todos.push(todo);
-        return todo;
-    }
-    updateTodoWithDb(id: string, body: todoUpdateDto): TodoModel{
-        console.log(id);
-        if (!id) throw new NotFoundException();
-        const todo = this.todos.find((todo) => todo.id == id);
-        //throw exception if not found
-        if (!todo) throw new NotFoundException();
-
-        if (!body.name) throw new NotFoundException();
-        if (!body.description) throw new NotFoundException();
-        if (!body.status) throw new NotFoundException();
-        
-        todo.description = body.description;
-        todo.name = body.name;
-        if(! (body.status.match('actif') ||
-        (body.status.match('waiting')) ||
-        (body.status.match('done')) ))
-           throw new NotFoundException("invalid status");
-        todo.status = body.status;
-        return todo;
-    }
-    deleteTodoWithDb(id: string): TodoModel {
-        console.log(id);
-        if (!id) throw new NotFoundException();
-        const todo = this.todos.find((todo) => todo.id == id);
-        //throw exception if not found
-        if (!todo) throw new NotFoundException();
-        const indexOfTodo = this.todos.indexOf(todo);
-        this.todos.splice(indexOfTodo,1);
-        return todo;
-    }
-
 }
