@@ -83,6 +83,19 @@ export class TodoController {
        return(this.toDoModuleService.updateTodoWithDTO(id,body));
     }
 
+    //with db
 
+    @Post('adddb')
+    addTodoDb(@Body() body:todoDto){
+        return (this.toDoModuleService.postTodoWithDb(body));
+    }
+    @Put('updatedb')
+    updateTodoDb(@Query('id') id,@Body() body:todoUpdateDto) {
+       return(this.toDoModuleService.updateTodoWithDb(id,body));
+    }
+    @Delete('byid')
+    deleteDb(@Query('id') id) {
+        return(this.toDoModuleService.deleteTodoWithDb(id));
+    }
 
 }   
