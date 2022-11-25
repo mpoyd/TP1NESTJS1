@@ -9,6 +9,7 @@ import { todoUpdateDto } from './todo.todoUpdateDto';
 import { uuidProvider } from 'src/common/common.uuidProvider';
 import { todoEntity } from './todo.todoEntity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TodoService {
