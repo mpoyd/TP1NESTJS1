@@ -13,9 +13,11 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class TodoService {
+ 
     private todos: TodoModel[] = []
-    constructor(private uuidProv: uuidProvider, @InjectRepository(todoEntity)
-    private readonly postRepository: Repository<todoEntity>) {
+ //private uuidProv: uuidProvider,
+    constructor( @InjectRepository(todoEntity)
+    private  postRepository: Repository<todoEntity>) {
 
     }
 
@@ -45,7 +47,8 @@ export class TodoService {
 
         return todo;
     }
-    postTodoWithDb(body: todoDto): TodoModel {
+    
+    async postTodoWithDb(body: todoDto): Promise<todoEntity> {
         if (!body.name) throw new NotFoundException();
         if (!body.description) throw new NotFoundException();
         const todo = new TodoModel();
@@ -53,7 +56,7 @@ export class TodoService {
         todo.name = body.name;
         console.log(todo);
         this.todos.push(todo);
-        return todo;
+        return await this.postRepository.save(todo);
     }
 
 
@@ -121,10 +124,12 @@ export class TodoService {
         todo.status = body.status;
         return todo;
     }
-    getUuid(): string {
+    /*getUuid(): string {
         console.log('getUuid');
-        return this.uuidProv.getUuid();
+      return this.uuidProv.getUuid();
     
     }
+    */
+
 
 }

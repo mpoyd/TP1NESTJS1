@@ -11,7 +11,7 @@ export class TodoModel {
     public description: string
 
     constructor() {
-        this.id = Id()
+        this.id //= Id()
         this.name = ''
         this.create_date = new Date()
         this.status = TodoStatusEnum.waiting

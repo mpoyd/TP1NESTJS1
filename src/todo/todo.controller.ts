@@ -77,12 +77,12 @@ export class TodoController {
     addTodoDto(@Body() body:todoDto){
         return (this.toDoModuleService.postTodoWithDTO(body));
     }
+    
 
     @Put('byiddto')
     updateTodoDto(@Query('id') id,@Body() body:todoUpdateDto) {
        return(this.toDoModuleService.updateTodoWithDTO(id,body));
     }
-
     //with db
 
     @Post('adddb')
@@ -97,5 +97,6 @@ export class TodoController {
     deleteDb(@Query('id') id) {
         return(this.toDoModuleService.deleteTodoWithDb(id));
     }
+
 
 }   

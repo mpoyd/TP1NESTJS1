@@ -3,8 +3,8 @@ import { timestamp } from './todo.timestamp';
 import { TodoStatusEnum } from './todo.TodoStatusEnum';
 @Entity('todo')
 export class todoEntity extends timestamp {
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
     @Column({ length: 50, unique: true })
     name: string;
     @Column()
